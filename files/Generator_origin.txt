@@ -1,0 +1,187 @@
+PROG -> SUBPROG  {}
+
+SUBPROG -> M VARIABLES  STATEMENT *{backpatch(STATEMENT.nextlist,nxq);gen(End,-,-,-);}*
+
+M -> ^ *{OFFSET=0}*
+
+N -> ^ *{N.quad=nxq}*
+
+VARIABLES -> VARIABLES VARIABLE ; *{}*
+
+VARIABLES -> VARIABLE ; *{}*
+
+T -> int *{T.type=int;T.width=4;}*
+
+T -> double *{T.type=double;T.width=8;}*
+
+ID -> id *{ID.name=id}*
+
+VARIABLE ->T ID
+
+*{enter(ID.name,type=T.type,offset=OFFSET);OFFSET+=T.width;VARIABLE.type=T.type;VARIABLE.width=T.width}*
+
+VARIABLE -> VARIABLE_1 , ID
+
+*{enter(ID.name,type=VARIABLE_1.type,offset=OFFSET);OFFSET+=VARIABLE_1.width;VARIABLE.type=VARIABLE_1.type;VARIABLE.width=VARIABLE_1.width;}*
+
+
+STATEMENT -> ASSIGN *{STATEMENT.nextlist=mklist()}*
+
+STATEMENT -> SCANF
+*{STATEMENT.nextlist=mklist()}*
+
+STATEMENT -> PRINTF *{STATEMENT.nextlist=mklist()}*
+
+STATEMENT -> ^ *{STATEMENT.nextlist=mklist()}*
+
+STATEMENT -> { L ; } *{STATEMENT.nextlist=L.nextlist}*
+
+STATEMENT -> while N_1 B do N_2 STATEMENT_1
+
+*{backpatch(STATEMENT_1.nextlist,N_1.quad);backpatch(B.truelist,N_2.quad);STATEMENT.nextlist=B.falselist;gen(j,-,-,N_1.quad)}*
+
+STATEMENT -> if B then N STATEMENT_1
+
+*{backpatch(B.truelist,N.quad),STATEMENT.nextlist=merge(B.falselist,STATEMENT_1.nextlist)}*
+
+*ASSIGN -> ID = EXPR
+{p=lookup(ID.name);gen(=,EXPR.place,-,p) }*
+
+L -> L_1 ; N STATEMENT *{backpatch(L1.nextlist,N.quad),L.nextlist=STATEMENT.nextlist}*
+
+L -> STATEMENT *{L.nextlist=STATEMENT.nextlist}*
+
+
+EXPR ->EXPR_1 || ORITEM
+
+*{EXPR.place=newtemp(int);EXPR.type=int;gen(||,EXPR_1.place,ORITEM.place,EXPR.place)}*
+
+EXPR -> ORITEM
+*{EXPR.place=ORITEM.place;EXPR.type=ORITEM.type}*
+
+ORITEM -> ORITEM_1 && ANDITEM
+
+*{ORITEM.place=newtemp(int);ORITEM.type=int;gen(&&,ORITEM_1.place,ANDITEM.place,ORITEM.place)}*
+
+ORITEM -> ANDITEM
+*{ORITEM.place=ANDITEM.place;ORITEM.type=ANDITEM.type}*
+
+ANDITEM -> NOITEM
+*{ANDITEM.place=NOITEM.place;ANDITEM.type=NOITEM.type;}*
+
+ANDITEM -> ! NOITEM
+
+*{ANDITEM=newtemp(int);ANDITEM.type=int;gen(!,NOITEM.place,-,ANDITEM.place)}*
+
+NOITEM -> NOITEM_1 REL RELITEM
+
+*{NOITEM.place=newtemp(int);NOITEM.type=int;gen(REL.op,NOITEM_1.place,RELITEM.place,NOITEM.place)}*
+
+NOITEM -> RELITEM *{NOITEM.place=RELITEM.place;NOITEM.type=RELITEM.type}*
+
+RELITEM -> RELITEM_1 PLUS_MINUS ITEM
+
+*{RELITEM.place=newtemp(RELITEM_1.type);RELITEM.type=RELITEM_1.type;gen(PLUS_MINUS.op,RELITEM_1.place,ITEM.place,RELITEM.place)}*
+
+RELITEM -> ITEM *{RELITEM.place=ITEM.place;RELITEM.type=ITEM.type}*
+
+ITEM -> FACTOR  *{ITEM.place=FACTOR.place;ITEM.type=FACTOR.type}*
+
+ITEM -> ITEM MUL_DIV FACTOR
+
+*{ITEM.place=newtemp(FACTOR.type);ITEM.type=FACTOR.type;gen(MUL_DIV.op,ITEM_1.place,FACTOR.place,ITEM.place)}*
+
+FACTOR -> ID  *{FACTOR.place=lookup(ID.name);FACTOR.type=lookup_type(ID.name)}*
+
+FACTOR -> UINT
+
+*{FACTOR.place=newtemp(int);FACTOR.type=int;gen(=,UINT,-,FACTOR.place)}*
+
+FACTOR -> UFLOAT
+
+*{FACTOR.place=newtemp(double);FACTOR.type=double;gen(=,UFLOAT,-,FACTOR.place)}*
+
+FACTOR -> ( EXPR ) *{FACTOR.place=EXPR.place;FACTOR.type=EXPR.type}*
+
+FACTOR -> PLUS_MINUS FACTOR_1
+
+*{FACTOR.place=newtemp(FACTOR_1.type);FACTOR.type=FACTOR_1.type;gen(PLUS_MINUS.op,0,FACTOR_1.place,FACTOR.place)}*
+
+### 作为条件控制的表达式
+
+B -> B_1 || N BORTERM
+
+*{backpatch(B_1.falselist,N.quad);B.truelist=merge(B_1.truelist,BORTERM.truelist);B.falselist=BORTERM.falselist}*
+
+B -> BORTERM
+*{B.truelist=BORTERM.truelist;B.falselist=BORTERM.falselist}*
+
+BORTERM -> BORTERM_1 && N
+BANDTERM
+
+*{backpatch(BORTERM_1.truelist,N.quad);BORTERM.falselist=merge(BORTERM_1.falselist,BANDTERM.falselist;BORTERM.truelist=BANDTERM.truelist)}*
+
+BORTERM -> BANDTERM
+
+*{BORTERM.truelist=BANDTERM.truelist;BORTERM.falselist=BANDTERM.falselist}*
+
+BANDTERM -> ( B )
+
+{BANDTERM.truelist=B.truelist;BANDTERM.falselist=B.falselist}
+
+BANDTERM ->  ! BANDTERM_1
+
+*{BANDTERM.truelist=BANDTERM_1.falselist;BANDTERM.falselist=BANDTERM_1.truelist}*
+
+BANDTERM -> BFACTOR_1 REL BFACTOR_2
+
+*{BANDTERM.truelist=mklist(nxq);BANDTERM.falselist=mklist(nxq+1);gen(j+REL.op,BFACTOR_1.place,BFACTOR_2.place,0);gen(j,-,-,0);}*
+
+BANDTERM -> BFACTOR
+
+*{BANDTERM.truelist=mklist(nxq);BANDTERM.falselist=mklist(nxq+1);gen(jnz,BFACTOR.place,-,0);gen(j,-,-,0)}*
+
+BFACTOR -> UINT
+
+*{BFACTOR.place=newtemp(int);BFACTOR.type=int;gen(=,UINT,-,FACTOR.place)}*
+
+BFACTOR -> UFLOAT
+
+*{BFACTOR.place=newtemp(double);BFACTOR.type=double;gen(=,UFLOAT,-,BFACTOR.place)}*
+
+BFACTOR -> ID
+*{BFACTOR.place=lookup(ID.name);BFACTOR.type=lookup_type(ID.name)}*
+
+### 运算符
+
+PLUS_MINUS -> + *{PLUS_MINUS.op='+'}*
+
+PLUS_MINUS -> -  *{ PLUS_MINUS.op='-'}*
+
+MUL_DIV -> \*  *{MUL_DIV.op='\*'}*
+
+MUL_DIV -> /  *{ MUL_DIV.op='/'}*
+
+REL -> == *{REL.op='=='}*
+
+REL -> !=  *{ REL.op='!='}}*
+
+REL -> <  *{ REL.op='<'}}*
+
+REL -> <= *{ REL.op='<='}*
+
+REL -> >  *{ REL.op='>'}}*
+
+REL -> >= *{ REL.op='>='}*
+
+SCANF -> SCANF_BEGIN ) *{}*
+
+SCANF_BEGIN -> SCANF_BEGIN , ID *{p=lookup(ID.name);gen(R,-,-,p)}*
+
+SCANF_BEGIN -> scanf ( ID       *{p=lookup(ID.name);gen(R,-,-,p)}*
+
+PRINTF -> PRINTF_BEGIN ) *{}*
+
+PRINTF_BEGIN -> printf ( ID       *{p=lookup(ID.name);gen(W,-,-,p)}*
+
+PRINTF_BEGIN -> PRINTF_BEGIN , ID {p=lookup(ID.name);gen(W,-,-,p)}

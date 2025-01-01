@@ -1,0 +1,61 @@
+! (FIRST) : ! 
+!= (FIRST) : != 
+&& (FIRST) : && 
+( (FIRST) : ( 
+) (FIRST) : ) 
+* (FIRST) : * 
++ (FIRST) : + 
+, (FIRST) : , 
+- (FIRST) : - 
+/ (FIRST) : / 
+; (FIRST) : ; 
+< (FIRST) : < 
+<= (FIRST) : <= 
+= (FIRST) : = 
+== (FIRST) : == 
+> (FIRST) : > 
+>= (FIRST) : >= 
+ANDITEM (FIRST) : ! id UINT UFLOAT ( + - 
+ASSIGN (FIRST) : id 
+B (FIRST) : ( ! UINT UFLOAT id 
+BANDTERM (FIRST) : ( ! UINT UFLOAT id 
+BFACTOR (FIRST) : UINT UFLOAT id 
+BORTERM (FIRST) : ( ! UINT UFLOAT id 
+EXPR (FIRST) : ! id UINT UFLOAT ( + - 
+FACTOR (FIRST) : id UINT UFLOAT ( + - 
+ID (FIRST) : id 
+ITEM (FIRST) : id UINT UFLOAT ( + - 
+L (FIRST) : { while if ^ ; id scanf printf 
+M (FIRST) : ^ 
+MUL_DIV (FIRST) : * / 
+N (FIRST) : ^ 
+NOITEM (FIRST) : id UINT UFLOAT ( + - 
+ORITEM (FIRST) : ! id UINT UFLOAT ( + - 
+PLUS_MINUS (FIRST) : + - 
+PRINTF (FIRST) : printf 
+PRINTF_BEGIN (FIRST) : printf 
+PROG (FIRST) : int double 
+REL (FIRST) : == != < <= > >= 
+RELITEM (FIRST) : id UINT UFLOAT ( + - 
+SCANF (FIRST) : scanf 
+SCANF_BEGIN (FIRST) : scanf 
+STATEMENT (FIRST) : ^ { while if id scanf printf 
+SUBPROG (FIRST) : int double 
+T (FIRST) : int double 
+UFLOAT (FIRST) : UFLOAT 
+UINT (FIRST) : UINT 
+VARIABLE (FIRST) : int double 
+VARIABLES (FIRST) : int double 
+^ (FIRST) : ^ 
+do (FIRST) : do 
+double (FIRST) : double 
+id (FIRST) : id 
+if (FIRST) : if 
+int (FIRST) : int 
+printf (FIRST) : printf 
+scanf (FIRST) : scanf 
+then (FIRST) : then 
+while (FIRST) : while 
+{ (FIRST) : { 
+|| (FIRST) : || 
+} (FIRST) : } 

@@ -1,0 +1,30 @@
+jmp ?read(TB0)
+mov R0, 0
+mov TB1, R0
+mov R0, 0
+mov R1, TB0
+cmp R1, R0
+jge ?6
+jmp ?21
+mov R0, 1
+mov R1, TB0
+sub R1, R0
+mov R0, 2
+mov R2, R1
+div R2, R0
+mov R0, 2
+mul R2, R0
+mov R0, R1
+sub R0, R2
+mov R2, 0
+mov TB0, R1
+mov TB2, R0
+cmp R0, R2
+jne ?18
+jmp ?3
+mov R0, TB1
+add R0, TB0
+mov TB1, R0
+jmp ?3
+jmp ?write(TB1)
+halt

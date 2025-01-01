@@ -1,0 +1,29 @@
+PROG -> SUBPROG
+    SUBPROG -> M VARIABLES STATEMENT
+        M -> ^
+        N -> ^
+        VARIABLES -> VARIABLES VARIABLE ; | VARIABLE ;
+            T -> int | double
+            ID -> id
+            VARIABLE -> T ID | VARIABLE , ID
+        STATEMENT -> ASSIGN | SCANF | PRINTF | ^ | { L ; } | while N B do N STATEMENT | if B then N STATEMENT
+            ASSIGN -> ID = EXPR
+            L -> L ; N STATEMENT | STATEMENT
+        EXPR -> EXPR || ORITEM | ORITEM
+            ORITEM -> ORITEM && ANDITEM | ANDITEM
+                ANDITEM -> NOITEM | ! NOITEM
+                    NOITEM -> NOITEM REL RELITEM | RELITEM
+                        RELITEM -> RELITEM PLUS_MINUS ITEM | ITEM
+                            ITEM -> FACTOR | ITEM MUL_DIV FACTOR
+                                FACTOR -> ID | UINT | UFLOAT | ( EXPR ) | PLUS_MINUS FACTOR
+        B -> B || N BORTERM | BORTERM
+            BORTERM -> BORTERM && N BANDTERM | BANDTERM
+                BANDTERM -> ( B ) | ! BANDTERM | BFACTOR REL BFACTOR | BFACTOR
+                    BFACTOR -> UINT | UFLOAT | ID
+        PLUS_MINUS -> + | -
+        MUL_DIV -> * | /
+        REL -> == | != | < | <= | > | >=
+        SCANF -> SCANF_BEGIN )
+            SCANF_BEGIN -> SCANF_BEGIN , ID | scanf ( ID
+        PRINTF -> PRINTF_BEGIN )
+            PRINTF_BEGIN -> printf ( ID | PRINTF_BEGIN , ID

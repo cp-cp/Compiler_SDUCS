@@ -1,0 +1,15 @@
+int a,b,c,d,e,f;
+{
+    a=0;
+    b=1;
+    c=2;
+    d=0;
+    e=0;
+    f=0;
+    if !(!(a && d || (e<5)))  then
+        d=b+c;
+    if ! (a<=b) then
+        e=b*c;
+
+    printf(d,e,f);
+}

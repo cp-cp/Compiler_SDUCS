@@ -1,0 +1,61 @@
+! (FOLLOW) : id UINT UFLOAT ( + - ! 
+!= (FOLLOW) : id UINT UFLOAT ( + - 
+&& (FOLLOW) : ! id UINT UFLOAT ( + - do then || && ) 
+( (FOLLOW) : ! id UINT UFLOAT ( + - 
+) (FOLLOW) : # || && == != < <= > >= + - * / do then ) ; 
+* (FOLLOW) : id UINT UFLOAT ( + - 
++ (FOLLOW) : id UINT UFLOAT ( + - 
+, (FOLLOW) : id 
+- (FOLLOW) : id UINT UFLOAT ( + - 
+/ (FOLLOW) : id UINT UFLOAT ( + - 
+; (FOLLOW) : { while if id scanf printf # int double } ; 
+< (FOLLOW) : id UINT UFLOAT ( + - 
+<= (FOLLOW) : id UINT UFLOAT ( + - 
+= (FOLLOW) : ! id UINT UFLOAT ( + - 
+== (FOLLOW) : id UINT UFLOAT ( + - 
+> (FOLLOW) : id UINT UFLOAT ( + - 
+>= (FOLLOW) : id UINT UFLOAT ( + - 
+ANDITEM (FOLLOW) : # || && ) ; 
+ASSIGN (FOLLOW) : # ; 
+B (FOLLOW) : do then || ) 
+BANDTERM (FOLLOW) : do then || && ) 
+BFACTOR (FOLLOW) : == != < <= > >= do then || && ) 
+BORTERM (FOLLOW) : do then || && ) 
+EXPR (FOLLOW) : # || ) ; 
+FACTOR (FOLLOW) : # || && == != < <= > >= + - * / ) ; 
+ID (FOLLOW) : ; , = # || && == != < <= > >= + - * / do then ) 
+ITEM (FOLLOW) : # || && == != < <= > >= + - * / ) ; 
+L (FOLLOW) : ; 
+M (FOLLOW) : int double 
+MUL_DIV (FOLLOW) : id UINT UFLOAT ( + - 
+N (FOLLOW) : ( ! UINT UFLOAT id { while if scanf printf # ; 
+NOITEM (FOLLOW) : # || && == != < <= > >= ) ; 
+ORITEM (FOLLOW) : # || && ) ; 
+PLUS_MINUS (FOLLOW) : id UINT UFLOAT ( + - 
+PRINTF (FOLLOW) : # ; 
+PRINTF_BEGIN (FOLLOW) : ) , 
+PROG (FOLLOW) : # 
+REL (FOLLOW) : id UINT UFLOAT ( + - 
+RELITEM (FOLLOW) : # || && == != < <= > >= + - ) ; 
+SCANF (FOLLOW) : # ; 
+SCANF_BEGIN (FOLLOW) : ) , 
+STATEMENT (FOLLOW) : # ; 
+SUBPROG (FOLLOW) : # 
+T (FOLLOW) : id 
+UFLOAT (FOLLOW) : # || && == != < <= > >= + - * / do then ) ; 
+UINT (FOLLOW) : # || && == != < <= > >= + - * / do then ) ; 
+VARIABLE (FOLLOW) : ; , 
+VARIABLES (FOLLOW) : { while if id scanf printf # int double 
+^ (FOLLOW) : int double # ( ! UINT UFLOAT id { while if scanf printf ; 
+do (FOLLOW) : # ; 
+double (FOLLOW) : id 
+id (FOLLOW) : ; , = # || && == != < <= > >= + - * / do then ) 
+if (FOLLOW) : ( ! UINT UFLOAT id 
+int (FOLLOW) : id 
+printf (FOLLOW) : ( 
+scanf (FOLLOW) : ( 
+then (FOLLOW) : # ; 
+while (FOLLOW) : # ; 
+{ (FOLLOW) : { while if ; id scanf printf # 
+|| (FOLLOW) : ! id UINT UFLOAT ( + - do then || ) 
+} (FOLLOW) : # ; 

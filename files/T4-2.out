@@ -1,0 +1,169 @@
+----BasicBlock---- 0 19
+处理四元式: = 4.600000 - T0_d
+mov R0, 4.600000
+处理四元式: = T0_d - TB3
+处理四元式: = 6.400000 - T1_d
+mov R1, 6.400000
+处理四元式: - 0 T1_d T2_d
+mov R2, 0
+sub R2, R1
+处理四元式: = 5 - T3_i
+mov R1, 5
+处理四元式: * T2_d T3_i T4_i
+mul R2, R1
+处理四元式: = T4_i - TB4
+处理四元式: * TB3 TB4 T5_d
+mov R1, R0
+mul R1, R2
+处理四元式: + TB3 TB4 T6_d
+2 TB4 - 1
+1 T5_d - 0
+0 TB3 - 1
+mov TB4, R2
+mov R2, R0
+add R2, TB4
+处理四元式: <= T6_d TB3 T7_i
+cmp;setle R2, R0
+处理四元式: / T5_d T7_i T8_i
+div R1, R2
+处理四元式: ! T8_i - T9_i
+not R1, -
+处理四元式: = T9_i - TB5
+处理四元式: = 4 - T10_i
+mov R2, 4
+处理四元式: = T10_i - TB0
+处理四元式: = 5 - T11_i
+2 TB0 - 1
+1 TB5 - 1
+0 TB3 - 1
+mov TB0, R2
+mov R2, 5
+处理四元式: = T11_i - TB1
+处理四元式: && TB0 TB1 T12_i
+2 TB1 - 1
+1 TB5 - 1
+0 TB3 - 1
+mov TB1, R2
+mov R2, TB0
+and R2, TB1
+处理四元式: = T12_i - TB2
+处理四元式: jnz TB0 - 21
+mov TB0, 
+mov TB1, 
+mov TB2, R2
+mov TB3, R0
+mov TB4, 
+mov TB5, R1
+2 TB2 - 1
+1 TB5 - 1
+0 TB3 - 1
+mov TB2, R2
+mov R2, TB0
+cmp R2, -
+ ?21
+----BasicBlock---- 20 20
+处理四元式: j - - 23
+jmp ?23
+----BasicBlock---- 21 21
+处理四元式: jnz TB3 - 26
+mov R0, TB3
+cmp R0, -
+ ?26
+----BasicBlock---- 22 22
+处理四元式: j - - 23
+jmp ?23
+----BasicBlock---- 23 24
+处理四元式: = 5 - T13_i
+mov R0, 5
+处理四元式: j< TB4 T13_i 26
+mov R1, TB4
+cmp R1, R0
+jl ?26
+----BasicBlock---- 25 25
+处理四元式: j - - 28
+jmp ?28
+----BasicBlock---- 26 27
+处理四元式: + TB1 TB2 T14_i
+mov R0, TB1
+add R0, TB2
+处理四元式: = T14_i - TB3
+mov TB3, R0
+----BasicBlock---- 28 28
+处理四元式: j<= TB0 TB1 32
+mov R0, TB0
+cmp R0, TB1
+jle ?32
+----BasicBlock---- 29 29
+处理四元式: j - - 30
+jmp ?30
+----BasicBlock---- 30 31
+处理四元式: * TB1 TB2 T15_i
+mov R0, TB1
+mul R0, TB2
+处理四元式: = T15_i - TB4
+mov TB4, R0
+----BasicBlock---- 32 33
+处理四元式: = 0 - T16_i
+mov R0, 0
+处理四元式: j>= TB0 T16_i 35
+mov R1, TB0
+cmp R1, R0
+jge ?35
+----BasicBlock---- 34 34
+处理四元式: j - - 55
+jmp ?55
+----BasicBlock---- 35 36
+处理四元式: = 0 - T17_i
+mov R0, 0
+处理四元式: j!= TB1 T17_i 38
+mov R1, TB1
+cmp R1, R0
+jne ?38
+----BasicBlock---- 37 37
+处理四元式: j - - 41
+jmp ?41
+----BasicBlock---- 38 39
+处理四元式: = 0 - T18_i
+mov R0, 0
+处理四元式: j> TB2 T18_i 41
+mov R1, TB2
+cmp R1, R0
+jg ?41
+----BasicBlock---- 40 40
+处理四元式: j - - 44
+jmp ?44
+----BasicBlock---- 41 42
+处理四元式: = 0 - T19_i
+mov R0, 0
+处理四元式: j> TB0 T19_i 32
+mov R1, TB0
+cmp R1, R0
+jg ?32
+----BasicBlock---- 43 43
+处理四元式: j - - 44
+jmp ?44
+----BasicBlock---- 44 53
+处理四元式: = 1 - T20_i
+mov R0, 1
+处理四元式: - TB1 T20_i T21_i
+mov R1, TB1
+sub R1, R0
+处理四元式: < T21_i TB2 T22_i
+cmp;setl R1, TB2
+处理四元式: = 0 - T23_i
+mov R0, 0
+处理四元式: == TB0 T23_i T24_i
+mov R2, TB0
+cmp;sete R2, R0
+处理四元式: || T22_i T24_i T25_i
+or R1, R2
+处理四元式: = T25_i - TB1
+处理四元式: W - - TB1
+jmp ?write(TB1)
+处理四元式: W - - TB3
+jmp ?write(TB3)
+处理四元式: j - - 35
+jmp ?35
+----BasicBlock---- 54 54
+处理四元式: j - - 32
+jmp ?32

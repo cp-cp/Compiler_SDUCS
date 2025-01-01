@@ -1,0 +1,8 @@
+int INTSYM
+double DOUBLESYM
+scanf SCANFSYM
+printf PRINTFSYM
+if IFSYM
+then THENSYM
+while WHILESYM
+do DOSYM

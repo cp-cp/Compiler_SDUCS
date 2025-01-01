@@ -1,0 +1,14 @@
+int a,b,c;
+
+{
+    scanf(a);
+    b=0;
+    while a>=0 do
+        {
+            a=a-1;
+            c=a-(a/2)*2;
+            if c!=0 then
+                b=b+a;
+        };
+    printf(b);
+}

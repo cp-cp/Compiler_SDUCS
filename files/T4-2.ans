@@ -1,0 +1,81 @@
+mov R0, 4.600000
+mov R1, 6.400000
+mov R2, 0
+sub R2, R1
+mov R1, 5
+mul R2, R1
+mov R1, R0
+mul R1, R2
+mov [ebp-20], R2
+mov R2, R0
+add R2, [ebp-20]
+cmp R2, R0
+setle R2
+div R1, R2
+not R1
+mov R2, 4
+mov [ebp-12], R0
+mov R0, 5
+mov [ebp-4], R0
+mov R0, R2
+and R0, [ebp-4]
+mov [ebp-0], R2
+mov [ebp-8], R0
+mov [ebp-28], R1
+cmp R2, 0
+jne ?21
+jmp ?23
+mov R0, [ebp-12]
+cmp R0, 0
+jne ?26
+jmp ?23
+mov R0, 5
+mov R1, [ebp-20]
+cmp R1, R0
+jl ?26
+jmp ?28
+mov R0, [ebp-4]
+add R0, [ebp-8]
+mov [ebp-12], R0
+mov R0, [ebp-0]
+cmp R0, [ebp-4]
+jle ?32
+jmp ?30
+mov R0, [ebp-4]
+mul R0, [ebp-8]
+mov [ebp-20], R0
+mov R0, 0
+mov R1, [ebp-0]
+cmp R1, R0
+jge ?35
+jmp ?55
+mov R0, 0
+mov R1, [ebp-4]
+cmp R1, R0
+jne ?38
+jmp ?41
+mov R0, 0
+mov R1, [ebp-8]
+cmp R1, R0
+jg ?41
+jmp ?44
+mov R0, 0
+mov R1, [ebp-0]
+cmp R1, R0
+jg ?32
+jmp ?44
+mov R0, 1
+mov R1, [ebp-4]
+sub R1, R0
+cmp R1, [ebp-8]
+setl R1
+mov R0, 0
+mov R2, [ebp-0]
+cmp R2, R0
+sete R2
+or R1, R2
+mov [ebp-4], R1
+jmp ?write([ebp-4])
+jmp ?write([ebp-12])
+jmp ?35
+halt
